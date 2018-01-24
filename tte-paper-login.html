@@ -1,0 +1,244 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../paper-progress/paper-progress.html">
+
+<dom-module id="tte-paper-login">
+	<template>
+		<style>
+			:host {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: calc(100vh - 19em);
+			}
+
+			paper-card {
+				width: 100%;
+			}
+
+			.img-logo {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 10em;
+			}
+
+			header { @apply --paper-font-headline; }
+
+			img { width: 50%; }
+
+			paper-checkbox {
+				margin: 22px 0;
+				--paper-checkbox-unchecked-color: var(--secondary-text-color);
+			}
+
+			paper-button { @apply --paper-font-button; }
+
+			paper-button[raised] {
+				background-color: var(--primary-color);
+				color: white;
+				margin: 1em 0;
+				width: 100%;
+			}
+
+			iron-icon { color: var(--light-theme-secondary-color); }
+			paper-input[focused] iron-icon { color: var(--primary-color); }
+
+			a { text-decoration: none; }
+
+			paper-item {
+				@apply --paper-font-button;
+				color: var(--light-theme-text-color);
+			}
+
+			paper-progress {
+				width: 100%;
+				--paper-progress-container-color: transparent;
+				--paper-progress-active-color: var(--primary-color);
+			}
+		</style>
+
+		<paper-card style="max-width:24em;">
+			<paper-progress indeterminate="[[_waiting]]"></paper-progress>
+			<div class="card-content">
+				<slot name="icon"></slot>
+				<header>
+					<h2 class="paper-font-headline primary-text-color">[[labels.title]]</h2>
+				</header>
+				<template is="dom-if" if="[[_isMsg]]">
+					<span class$="paper-font-caption [[_msgColor]]-color">[[_msgContent]]</span>
+				</template>
+
+				<paper-input autofocus autocomplete autosave type="email" label="[[labels.email]]" value="{{_content.email}}"><iron-icon icon="mail" slot="suffix"></iron-icon></paper-input>
+
+				<iron-collapse opened="[[_isState(_state, 'login', 'register')]]">
+					<paper-input type="password" label="[[labels.password]]" value="{{_content.password}}"><iron-icon icon="lock" slot="suffix"></iron-icon></paper-input>
+				</iron-collapse>
+				<iron-collapse opened="[[_isState(_state, 'register')]]">
+					<paper-input label="[[labels.cpassword]]" type="password" value="{{_content.cpassword}}" disabled="[[_passConfirm]]"><iron-icon icon="lock-outline" slot="suffix"></iron-icon></paper-input>
+				</iron-collapse>
+				<iron-collapse opened="[[_isState(_state, 'login')]]">
+					<paper-checkbox checked="{{_content.remember}}">[[labels.remember]]</paper-checkbox>
+				</iron-collapse>
+				<iron-collapse opened="[[_isShowExtra]]">
+					<slot name="extra"></slot>
+				</iron-collapse>
+			</div>
+			<div class="card-actions">
+				<paper-button raised on-click="_action">[[labels.enter]]</paper-button>
+				<paper-item on-click="_toogleLoginRegisterState">[[labels.change]]</paper-item>
+				<iron-collapse opened="[[_isState(_state, 'login')]]">
+					<paper-item on-click="_forgetState">[[labels.forget]]</paper-item>
+				</iron-collapse>
+			</div>
+			<iron-a11y-keys
+				keys="enter"
+				on-keys-pressed="_action"></iron-a11y-keys>
+		</paper-card>
+	</template>
+
+	<script>
+		class TtePaperLogin extends Polymer.Element {
+			static get is() { return "tte-paper-login" }
+			static get properties() {
+				return {
+					template: {
+						type: Object,
+						value() {
+							return {
+								login: {
+									title: "Login",
+									email: "E-mail",
+									password: "Password",
+									remember: "Remember-me",
+									enter: "Login",
+									change: "New account",
+									forget: "I forget my password"
+								},
+								register: {
+									title: "Register",
+									email: "E-mail",
+									password: "Password",
+									cpassword: "Confirm password",
+									enter: "Register",
+									change: "I have a account"
+								},
+								forget: {
+									title: "Forget",
+									email: "E-mail",
+									enter: "Remember",
+									change: "I have a account"
+								}
+							}
+						}
+					},
+					labels: {
+						type: Object
+					},
+					_state: {
+						type: String,
+						value: "login"
+					},
+					_waiting: {
+						type: Boolean,
+						value: false
+					},
+					_content: {
+						type: Object,
+						value() {
+							return {}
+						}
+					},
+					_isMsg: {
+						type: Boolean,
+						value: true
+					},
+					_msgColor: {
+						type: String,
+						value: "warning"
+					},
+					_msgContent: String,
+					_passConfirm: {
+						type: Boolean,
+						value: true
+					}
+				}
+			}
+			static get observers() {
+				return ["_handleTemplateChange(template, _state)", "_computePassEmpty(_content.password)"]
+			}
+
+			_handleTemplateChange(template, state) {
+				this._isMsg = false
+				this.labels = template[state]
+			}
+
+			_computePassEmpty(password) {
+				if(!password) {
+					this._passConfirm = true
+				} else {
+					this._passConfirm = false
+				}
+			}
+
+			_isState(state) {
+				for(let i = 1; i < arguments.length; i++) {
+					if(arguments[i] == state) return true
+				}
+				return false
+			}
+
+			_toogleLoginRegisterState() {
+				this._state = this._state == "login" ? "register" : "login"
+			}
+
+			_forgetState() {
+				this._state = "forget"
+			}
+
+			_action() {
+				let res = {}
+				switch(this._state) {
+					case "register":
+					res.cpassword = this._content.cpassword
+					case "login":
+					res.password = this._content.password
+					res.remember = this._content.remember
+					case "forget":
+					res.email = this._content.email
+				}
+				res.state = this._state
+				let ev = {detail:{finish(){this.finish()}, content: res}}
+
+				this._waiting = true
+				this.dispatchEvent(new CustomEvent(`response-${this._state}`, ev))
+			}
+
+			sendError(eMsg) {
+				this._isMsg = true
+				this._msgColor = "error"
+				this._msgContent = eMsg
+			}
+
+			sendWarning(eMsg) {
+				this._isMsg = true
+				this._msgColor = "warning"
+				this._msgContent = eMsg
+			}
+
+			finish() {
+				this._waiting = false
+			}
+		}
+
+		window.customElements.define(TtePaperLogin.is, TtePaperLogin);
+	</script>
+</dom-module>
