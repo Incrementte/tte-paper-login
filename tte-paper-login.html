@@ -24,52 +24,49 @@
 				width: 100%;
 			}
 
-			.img-logo {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				height: 10em;
+			paper-progress {
+				width: 100%;
+				--paper-progress-container-color: transparent;
+				--paper-progress-active-color: var(--primary-color, #3f51b5);
 			}
 
-			header { @apply --paper-font-headline; }
+			header {
+				@apply --paper-font-headline;
+			}
 
-			img { width: 50%; }
+			iron-icon {
+				color: var(--secondary-text-color, #737373);
+			}
+
+			paper-input[focused] iron-icon {
+				color: var(--primary-color, #3f51b5);
+			}
 
 			paper-checkbox {
 				margin: 22px 0;
-				--paper-checkbox-unchecked-color: var(--secondary-text-color);
+				--paper-checkbox-unchecked-color: var(--secondary-text-color, #737373);
 			}
 
 			paper-button { @apply --paper-font-button; }
 
 			paper-button[raised] {
-				background-color: var(--primary-color);
+				background-color: var(--primary-color, #3f51b5);
 				color: white;
 				margin: 1em 0;
 				width: 100%;
 			}
 
-			iron-icon { color: var(--light-theme-secondary-color); }
-			paper-input[focused] iron-icon { color: var(--primary-color); }
-
-			a { text-decoration: none; }
-
 			paper-item {
 				@apply --paper-font-button;
-				color: var(--light-theme-text-color);
-			}
-
-			paper-progress {
-				width: 100%;
-				--paper-progress-container-color: transparent;
-				--paper-progress-active-color: var(--primary-color);
+				color: var(--primary-text-color, #212121);
 			}
 		</style>
 
 		<paper-card style="max-width:24em;">
 			<paper-progress indeterminate="[[_waiting]]"></paper-progress>
 			<div class="card-content">
-				<slot name="icon"></slot>
+				<!-- children should add a slot="branding" if want to add logo at the top of the card -->
+				<slot name="branding"></slot>
 				<header>
 					<h2 class="paper-font-headline primary-text-color">[[labels.title]]</h2>
 				</header>
