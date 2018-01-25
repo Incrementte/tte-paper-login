@@ -156,7 +156,7 @@
 					_content: {
 						type: Object,
 						value() {
-							return {}
+							return {remember: true}
 						}
 					},
 					_isMsg: {
@@ -225,9 +225,7 @@
 				res.state = this._state
 				let ev = {
 					detail: {
-						finish: (() => {
-							this.finish()
-						}).bind(this),
+						finish: this.finish.bind(this),
 						content: res
 					}
 				}
