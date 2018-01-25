@@ -223,7 +223,14 @@
 					res.email = this._content.email
 				}
 				res.state = this._state
-				let ev = {detail:{finish(){this.finish()}, content: res}}
+				let ev = {
+					detail: {
+						finish: (() => {
+							this.finish()
+						}).bind(this),
+						content: res
+					}
+				}
 
 				this._waiting = true
 				this.dispatchEvent(new CustomEvent(`response-${this._state}`, ev))
