@@ -100,8 +100,14 @@
 						<iron-collapse opened="[[_isState(_state, 'login')]]">
 							<paper-checkbox checked="{{_content.remember}}">[[labels.remember]]</paper-checkbox>
 						</iron-collapse>
-						<iron-collapse opened="[[extra]]">
-							<slot name="extra"></slot>
+						<iron-collapse opened="[[extraLogin]]">
+							<slot name="extra-login"></slot>
+						</iron-collapse>
+						<iron-collapse opened="[[extraRegister]]">
+							<slot name="extra-register"></slot>
+						</iron-collapse>
+						<iron-collapse opened="[[extraForget]]">
+							<slot name="extra-login"></slot>
 						</iron-collapse>
 					</form>
 				</iron-form>
@@ -157,7 +163,15 @@
 					labels: {
 						type: Object
 					},
-					extra: {
+					extraLogin: {
+						type: Boolean,
+						value: false
+					},
+					extraRegister: {
+						type: Boolean,
+						value: false
+					},
+					extraForget: {
 						type: Boolean,
 						value: false
 					},
