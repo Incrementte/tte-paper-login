@@ -67,7 +67,7 @@
 			}
 
 			.paper-font-caption.warning {
-				
+
 			}
 
 			.paper-font-caption.error {
@@ -100,7 +100,7 @@
 						<iron-collapse opened="[[_isState(_state, 'login')]]">
 							<paper-checkbox checked="{{_content.remember}}">[[labels.remember]]</paper-checkbox>
 						</iron-collapse>
-						<iron-collapse opened="[[_isShowExtra]]">
+						<iron-collapse opened="[[extra]]">
 							<slot name="extra"></slot>
 						</iron-collapse>
 					</form>
@@ -156,6 +156,10 @@
 					},
 					labels: {
 						type: Object
+					},
+					extra: {
+						type: Boolean,
+						value: false
 					},
 					_state: {
 						type: String,
