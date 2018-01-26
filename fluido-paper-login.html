@@ -5,13 +5,13 @@
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../iron-form/iron-form.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="fluido-paper-login-icons.html">
 
-<dom-module id="tte-paper-login">
+<dom-module id="fluido-paper-login">
 	<template>
 		<style>
 			:host {
@@ -61,6 +61,18 @@
 				@apply --paper-font-button;
 				color: var(--primary-text-color, #212121);
 			}
+
+			.paper-font-caption {
+
+			}
+
+			.paper-font-caption.warning {
+				
+			}
+
+			.paper-font-caption.error {
+
+			}
 		</style>
 
 		<paper-card style="max-width:24em;">
@@ -77,13 +89,13 @@
 							<span class$="paper-font-caption [[_msgColor]]-color">[[_msgContent]]</span>
 						</template>
 
-						<paper-input required autofocus autocomplete autosave type="email" label="[[labels.email]]" value="{{_content.email}}"><iron-icon icon="mail" slot="suffix"></iron-icon></paper-input>
+						<paper-input required autofocus autocomplete autosave type="email" label="[[labels.email]]" value="{{_content.email}}"><iron-icon icon="fluido-paper-login-icons:mail" slot="suffix"></iron-icon></paper-input>
 
 						<iron-collapse opened="[[_isState(_state, 'login', 'register')]]">
-							<paper-input type="password" label="[[labels.password]]" value="{{_content.password}}"><iron-icon icon="lock" slot="suffix"></iron-icon></paper-input>
+							<paper-input type="password" label="[[labels.password]]" value="{{_content.password}}"><iron-icon icon="fluido-paper-login-icons:lock" slot="suffix"></iron-icon></paper-input>
 						</iron-collapse>
 						<iron-collapse opened="[[_isState(_state, 'register')]]">
-							<paper-input label="[[labels.cpassword]]" type="password" value="{{_content.cpassword}}" disabled="[[_passConfirm]]"><iron-icon icon="lock-outline" slot="suffix"></iron-icon></paper-input>
+							<paper-input label="[[labels.cpassword]]" type="password" value="{{_content.cpassword}}" disabled="[[_passConfirm]]"><iron-icon icon="fluido-paper-login-icons:lock-outline" slot="suffix"></iron-icon></paper-input>
 						</iron-collapse>
 						<iron-collapse opened="[[_isState(_state, 'login')]]">
 							<paper-checkbox checked="{{_content.remember}}">[[labels.remember]]</paper-checkbox>
@@ -108,8 +120,8 @@
 	</template>
 
 	<script>
-		class TtePaperLogin extends Polymer.Element {
-			static get is() { return "tte-paper-login" }
+		class FluidoPaperLogin extends Polymer.Element {
+			static get is() { return "fluido-paper-login" }
 			static get properties() {
 				return {
 					template: {
@@ -251,6 +263,6 @@
 			}
 		}
 
-		window.customElements.define(TtePaperLogin.is, TtePaperLogin);
+		window.customElements.define(FluidoPaperLogin.is, FluidoPaperLogin);
 	</script>
 </dom-module>
