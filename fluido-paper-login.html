@@ -177,7 +177,8 @@
 					},
 					_state: {
 						type: String,
-						value: "login"
+						value: "login",
+						observer: "_stateChange"
 					},
 					_waiting: {
 						type: Boolean,
@@ -234,6 +235,12 @@
 
 			_forgetState() {
 				this._state = "forget"
+			}
+
+			_stateChange(state) {
+				this.extraLogin = state === "login"
+				this.extraRegister = state === "register"
+				this.extraForget = state === "forget"
 			}
 
 			_submit() {
