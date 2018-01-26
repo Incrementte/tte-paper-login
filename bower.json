@@ -1,7 +1,7 @@
 {
-  "name": "tte-paper-login",
+  "name": "fluido-paper-login",
   "description": "component to login",
-  "main": "tte-paper-login.html",
+  "main": "fluido-paper-login.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "paper-progress": "PolymerElements/paper-progress#^2.0.1",

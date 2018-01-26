@@ -4,36 +4,36 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>tte-paper-login test</title>
+    <title>fluido-paper-login test</title>
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../tte-paper-login.html">
+    <link rel="import" href="../fluido-paper-login.html">
   </head>
   <body>
 
     <test-fixture id="BasicTestFixture">
       <template>
-        <tte-paper-login></tte-paper-login>
+        <fluido-paper-login></fluido-paper-login>
       </template>
     </test-fixture>
 
     <test-fixture id="ChangedPropertyTestFixture">
       <template>
-        <tte-paper-login prop1="new-prop1"></tte-paper-login>
+        <fluido-paper-login prop1="new-prop1"></fluido-paper-login>
       </template>
     </test-fixture>
 
     <script>
-      suite('tte-paper-login', () => {
+      suite('fluido-paper-login', () => {
 
         test('instantiating the element with default properties works', () => {
           const element = fixture('BasicTestFixture');
-          assert.equal(element.prop1, 'tte-paper-login');
+          assert.equal(element.prop1, 'fluido-paper-login');
           const elementShadowRoot = element.shadowRoot;
           const elementHeader = elementShadowRoot.querySelector('h2');
-          assert.equal(elementHeader.innerHTML, 'Hello tte-paper-login!');
+          assert.equal(elementHeader.innerHTML, 'Hello fluido-paper-login!');
         });
 
         test('setting a property on the element works', () => {

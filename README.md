@@ -1,4 +1,4 @@
-# \<tte-paper-login\>
+# \<fluido-paper-login\>
 
 component to login
 
