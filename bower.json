@@ -1,6 +1,7 @@
 {
   "name": "fluido-paper-login",
   "description": "component to login",
+  "version": "0.1.15",
   "main": "fluido-paper-login.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
