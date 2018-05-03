@@ -89,7 +89,7 @@
 							<span class$="paper-font-caption [[_msgColor]]-color">[[_msgContent]]</span>
 						</template>
 
-						<paper-input required autofocus autocomplete autosave type="email" label="[[labels.email]]" value="{{_content.email}}"><iron-icon icon="fluido-paper-login-icons:mail" slot="suffix"></iron-icon></paper-input>
+						<paper-input required autofocus name="email" autocomplete="email" autosave type="email" label="[[labels.email]]" value="{{_content.email}}"><iron-icon icon="fluido-paper-login-icons:mail" slot="suffix"></iron-icon></paper-input>
 
 						<iron-collapse opened="[[_isState(_state, 'login', 'register')]]">
 							<paper-input type="password" label="[[labels.password]]" value="{{_content.password}}"><iron-icon icon="fluido-paper-login-icons:lock" slot="suffix"></iron-icon></paper-input>
