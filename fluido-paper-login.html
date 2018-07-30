@@ -36,6 +36,11 @@
 				text-align: center;
 			}
 
+			header ::slotted(*) {
+				@apply --paper-font-subhead;
+				color: var(--secondary-text-color);
+			}
+			
 			iron-icon {
 				color: var(--secondary-text-color, #737373);
 			}
@@ -85,6 +90,7 @@
 						<slot name="branding"></slot>
 						<header>
 							<h2 class="paper-font-headline primary-text-color">[[labels.title]]</h2>
+							<slot name="subhead"></slot>
 						</header>
 						<template is="dom-if" if="[[_isMsg]]">
 							<span class$="paper-font-caption [[_msgColor]]-color">[[_msgContent]]</span>
